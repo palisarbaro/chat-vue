@@ -1,0 +1,78 @@
+version: '3.1'
+
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: andrey
+    ports:
+      - 5432:5432
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    hostname: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "psql --username=andrey -c '\\l' | grep messages"]
+      interval: 10s
+      # timeout: 5s
+      retries: 5
+      # start_period: 30s
+    networks:
+      mynet:
+        ipv4_address: 172.16.238.2
+      
+  auth-server:
+    image: agbaz/auth-server:master
+    restart: always
+    volumes:
+      - ./cert/kek.crt:/etc/ssl/certs/kek.crt
+      - ./cert/kek.key:/etc/ssl/private/kek.key
+      - ./auth.env:/usr/src/app/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      mynet:
+        ipv4_address: 172.16.238.3
+        
+  chat-api:
+    image: agbaz/chat-api:master
+    restart: always
+    volumes:
+      - ./cert/kek.crt:/etc/ssl/certs/kek.crt
+      - ./cert/kek.key:/etc/ssl/private/kek.key
+      - ./api.env:/usr/src/app/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      mynet:
+        ipv4_address: 172.16.238.4
+ 
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../dist:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./cert/kek.crt:/etc/nginx/certs/kek.crt
+      - ./cert/kek.key:/etc/nginx/certs/kek.key
+    networks:
+      mynet:
+        ipv4_address: 172.16.238.5
+
+networks:
+  mynet:
+    driver: bridge
+    internal: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
