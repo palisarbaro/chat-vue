@@ -42,7 +42,8 @@ export default {
             })
         },
         async loadLoop(){
-            for (let i = 0;i < 1000;i++){
+            // eslint-disable-next-line no-constant-condition
+            while(true){
                 try{
                     const resp = await this.subscribe(new Date())
                     this.updateMessages(resp.messages)
