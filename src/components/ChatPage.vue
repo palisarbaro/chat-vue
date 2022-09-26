@@ -43,9 +43,14 @@ export default {
         },
         async loadLoop(){
             for (let i = 0;i < 1000;i++){
-                const resp = await this.subscribe(new Date())
-                this.updateMessages(resp.messages)
-                this.scrollDown()
+                try{
+                    const resp = await this.subscribe(new Date())
+                    this.updateMessages(resp.messages)
+                    this.scrollDown()
+                }
+                catch(e){
+                    console.log()
+                }
             }
         },
         scrollHandler(){
