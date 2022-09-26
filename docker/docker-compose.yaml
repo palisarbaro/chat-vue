@@ -17,7 +17,7 @@ services:
       test: ["CMD-SHELL", "psql --username=andrey -c '\\l' | grep messages"]
       interval: 10s
       # timeout: 5s
-      retries: 5
+      retries: 50
       # start_period: 30s
     networks:
       mynet:
