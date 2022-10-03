@@ -1,14 +1,14 @@
 # chat
 
-Типа микросервисный чат с JWT авторизацией. (Vue.js)
-Сервис авторизации(Node.js) https://github.com/palisarbaro/auth
-API(Node.js) https://github.com/palisarbaro/chat-api
+Типа микросервисный чат с JWT авторизацией. (Vue.js) <br>
+Сервис авторизации(Node.js) https://github.com/palisarbaro/auth <br>
+API(Node.js) https://github.com/palisarbaro/chat-api 
 
 ## Запуск приложения
-открывает на https://localhost следующие порты
-80,443 - само приложение
-4000 - API сервер
-5000 - Сервер авторизации
+открывает на https://localhost следующие порты <br>
+80,443 - само приложение <br>
+4000 - API сервер <br>
+5000 - Сервер авторизации 
 ```sh
 cd docker
 docker-compose up -d
