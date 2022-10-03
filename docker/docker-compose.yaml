@@ -26,6 +26,8 @@ services:
   auth-server:
     image: agbaz/auth-server:master
     restart: always
+    ports:
+      - "5000:5000"
     volumes:
       - ./cert/kek.crt:/etc/ssl/certs/kek.crt
       - ./cert/kek.key:/etc/ssl/private/kek.key
@@ -40,6 +42,8 @@ services:
   chat-api:
     image: agbaz/chat-api:master
     restart: always
+    ports:
+      - "4000:4000"
     volumes:
       - ./cert/kek.crt:/etc/ssl/certs/kek.crt
       - ./cert/kek.key:/etc/ssl/private/kek.key
