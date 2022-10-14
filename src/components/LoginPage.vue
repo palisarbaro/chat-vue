@@ -52,31 +52,29 @@ export default {
     },
 }
 </script>
-<style scoped>
-.logreg{
+<style scoped lang="scss">
+.logreg {
     background-color: aqua  ;
     display: flex;
     flex-direction: row;
-        margin-top: 20px;
-
+    margin-top: 20px;
+    button {
+        background-color: aquamarine;
+        flex-grow: 1;
+        text-align: center;
+        border-radius: 5px;
+    }
 }
-.logreg button{
-    background-color: aquamarine;
-    flex-grow: 1;
-    text-align: center;
-    border-radius: 5px;
-}
-.inp{
+.inp {
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
-
+    label {
+        align-self: center;
+        font-weight: bold;
+    }
 }
-.inp label{
-    align-self: center;
-    font-weight: bold;
-}
-.login-box{
+.login-box {
     width: 300px;
     height: 150px;
     background-color: burlywood;

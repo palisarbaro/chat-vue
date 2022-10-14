@@ -23,6 +23,7 @@ export default {
         return {
             messages       : [],
             message_loading: true,
+            pageOpened     : true
         }
     },
     methods: {
@@ -43,7 +44,7 @@ export default {
         },
         async loadLoop(){
             // eslint-disable-next-line no-constant-condition
-            while(true){
+            while(this.pageOpened){
                 try{
                     const resp = await this.subscribe(new Date())
                     this.updateMessages(resp.messages)
@@ -80,11 +81,14 @@ export default {
         this.loadLoop()
 
         //this.subscribe(this.messages[0].date).then((r)=>console.log(r))
+    },
+    beforeUnmount(){
+        this.pageOpened = false
     }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .loader {
     background-color: rgb(176, 175, 187);
     border-radius: 4px;
@@ -92,9 +96,9 @@ export default {
     padding: 5px;
     word-wrap: break-word;
     text-align: center;
-}
-.loader:hover{
-    cursor: pointer
+    &:hover{
+        cursor: pointer
+    }
 }
 
 .chat{
