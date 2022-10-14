@@ -1,8 +1,8 @@
 import axios from 'axios'
 import store from '../store'
 import { RequestAbortedError, IncorrectStatusError, UnexpectedFieldCodeError } from '../errors'
-const AUTH_URL = 'https://localhost/auth'
-const API_URL = 'https://localhost/api'
+const AUTH_URL = '/auth'
+const API_URL = '/api'
 
 function generateConfig(url){
     return {
