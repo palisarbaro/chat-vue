@@ -20,7 +20,7 @@ export default {
     },
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .author{
     font-weight: bold;
     color: rgb(85, 10, 10)

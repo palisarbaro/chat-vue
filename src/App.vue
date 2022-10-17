@@ -31,7 +31,7 @@ export default {
     }
 }
 </script>
-<style>
+<style lang="scss">
 .main_container{
     width: 100%;
     height: 100%;

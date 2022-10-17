@@ -22,7 +22,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .send_block{
     display: flex;
     flex-direction: row;

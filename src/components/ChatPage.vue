@@ -27,7 +27,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions({ getMessages: 'message/fetch', subscribe: 'message/subscribe' }),
+        ...mapActions({ getMessages: 'message/fetch', subscribe: 'message/subscribe', sendMessage: 'message/send' }),
         updateMessages(new_messages){
             this.messages = new_messages.concat(this.messages)
             this.messages = [ // remove duplicates
@@ -46,9 +46,17 @@ export default {
             // eslint-disable-next-line no-constant-condition
             while(this.pageOpened){
                 try{
+                    let possibleShift = 50
+                    let scrolledToBottom = this.$refs.scroll.scrollTop + this.$refs.scroll.offsetHeight + possibleShift > this.$refs.scroll.scrollHeight
                     const resp = await this.subscribe(new Date())
                     this.updateMessages(resp.messages)
-                    this.scrollDown()
+                    if(scrolledToBottom) {
+                        this.scrollDown()
+                    }
+                    //let num = new Number(this.messages.at(-1).text)
+                    // if (!isNaN(num)){
+                    //     this.sendMessage(num + 1)
+                    // }
                 }
                 catch(e){
                     console.log()
